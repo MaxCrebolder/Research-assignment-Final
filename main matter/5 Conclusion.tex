@@ -1,0 +1,26 @@
+\chapter{Conclusion}
+In this Chapter, the research questions and sub-questions are answered from the results. The report aims to improve weather forecasts for significant wave height, mean wave frequency, and wind speed for offshore wind turbine installations by comparing hybrid, probabilistic, and deep learning models, and what is the impact of varying refit intervals on forecast performance?.
+
+\subsection*{Sub-Questions}
+\noindent \textbf{What are the strengths and limitations of hybrid, probabilistic, and deep learning models for forecasting key weather conditions in offshore wind turbine installation?}
+
+\noindent The Hybrid ARIMA-ANN model captured the wave height fluctuations and peaks well, but it required careful tuning during the construction of the model. The Bayesian Neural Network with Monte Carlo Dropout can show uncertainty estimations, which could be beneficial for risk assessment. But, it does show a higher variance and higher values for the evaluation metrics. The strengths of the LSTM model will be in the shorter forecasting, when the fluctuations are not relevant. Another shortcoming of this model is the large data set necessary to make a well-established trained model. \\
+
+\noindent \textbf{How do the BNN with Monte Carlo Dropout, LSTM, and Hybrid ARIMA–ANN compare in forecasting significant wave height, wave frequency, and wind speed using a 5-day refit interval?}
+
+\noindent At the 5-day refit interval, it showed the Hybrid model had some values for the coefficient of determination ($R^2$) that indicated that it is performing worse than a naive baseline. Although, overall the forecast was able to capture the fluctuations and the other evaluation metrics are kept to a minimum. BNN with MC dropout showed wider residual spread, which is not beneficial in accurate forecasting, and so causes worse evaluation metrics compared to the other models. The LSTM model, although performing similarly as the Hybrid model based on the evaluation metrics, it is not capturing any fluctuations between the refit intervals.\\
+
+\noindent \textbf{How does the Hybrid ARIMA–ANN model’s performance change with varying refit intervals, when the model is retrained with the actual past data (6 hours, 12 hours, 1 day, 2 days, 3 days, 4 days, 5 days, 6 days, 7 days, 1 week, 2 weeks and 4 weeks)?}
+
+\noindent Frequent refitting (\leq 1-day) improved the forecasts, almost halving the errors in the evaluation metrics. It is important to note that with these shorter refit intervals comes the increase in computational time. There needs to be a weigh-off on how accurate the model has to be and how many days ahead the forecast needs to be.
+
+\newpage 
+
+\noindent \textbf{What are the implications of these forecasting models and intervals for scheduling and risk management in offshore wind farm installation?}
+
+\noindent The longer refit intervals increase the chance of missed dangerous conditions (FN), which will give higher safety risks for the installation phase. Shorter refit intervals lead to a higher accuracy and so lower values for false negatives and false positives. There needs to be a weighing of how far the forecast should be ahead of time and what amount of risks an operator is willing to take. For now, a refit interval of 1 day would be a good weight off between these values, where the accuracy is still fairly high and the risks associated with this accuracy are low. 
+
+\subsection*{Research Question}  
+How can weather forecasts for significant wave height, mean wave frequency, and wind speed be improved for offshore wind turbine installations by comparing hybrid, probabilistic, and deep learning models, and what is the impact of varying refit intervals on forecast performance?\\
+
+\noindent By comparing the three models, it can be concluded that the Hybrid ARIMA-ANN model outperformed the other two models. Though the LSTM performed similarly by RMSE/MAE, it did not respond as well to short-term spikes within the 5-day interval. This indicates it may need a shorter refit interval or a larger dataset to adapt to sudden changes. The Bayesian Neural Network with Monte Carlo dropout, although high computational time, gives a higher variance in the model. The Hybrid model captures the fluctuations in the data and, in the meantime, also ensures the errors are kept to a minimum. For a \leq 1-day refit intervals, the model showed consistent accurate forecasts of Significant Wave Height and Wind Speed. This will reduce the likelihood of dangerous situations, and overall it will lead to a smoother operation.

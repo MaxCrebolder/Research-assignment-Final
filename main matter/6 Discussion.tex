@@ -1,0 +1,47 @@
+\chapter{Discussion}
+
+\section{Three model comparison}
+The main goal of this research was to increase the accuracy in the forecasting of Significant Wave Height, Mean Wave Frequency and Wind Speed. This is to ensure the operational windows for the installation of offshore wind-turbines can be used optimally. Three different forecast models were designed with each having their strengths and limitations, shown in Table \ref{tab:model_comparison}. 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|p{4cm}|p{6cm}|p{6cm}|}
+\hline
+\textbf{Model} & \textbf{Strengths} & \textbf{Limitations} \\
+\hline
+Hybrid ARIMA–ANN & 
+Balances linear and non-linear patterns by combining a linear approximation (ARIMA) with a neural network’s capability to capture the non-linear data. &
+Relies on consistently strong ARIMA residual modelling – unexpected real-world outliers may affect the ANN’s ability to effectively capture non-linear outliers. \\
+\hline
+Bayesian Neural Network (BNN) with Monte Carlo Dropout (MCD) & 
+Provides predictive distributions rather than point estimates, enabling detailed risk assessment for scheduling and operations. &
+Tends to have higher computational time and careful calibration of dropout rates to avoid over- or under-estimating uncertainty. \\
+\hline
+Long Short-Term Memory (LSTM) & 
+Can be used on shorter refit intervals where the fluctuations in the data are lower, there it will be highly accurate where it captures most of the values within a certain range. &
+There needs to be more than enough training data to ensure the model captures all outliers, if not available the model will not perform well. The exponential approximation might not always suit the data. \\
+\hline
+\end{tabular}
+\caption{Comparison of Model Strengths and Limitations}
+\label{tab:model_comparison}
+\end{table}
+
+\noindent When these models are applied to the data, all three models showed new insights and advantages in the forecasting of significant wave height, mean wave frequency and wind speed. The level of improvement although, was different between the models, where the Hybrid and the BNN with MC dropout were able to capture the fluctuations within the data. The LSTM model had some shortcomings, this can be caused by not enough available training data, or the hyperparameter needs to be further tuned. 
+
+\section{Refit Intervals}
+The Hybrid ARIMA-ANN model showed the most promising results with a 5-day refit interval, where the residuals were within a respectable range, Figure \ref{fig:combined_box}, and the evaluation metrics, Table \ref{tab:performance_comparison}, showed the errors are small. With the short refit intervals \leq 1-day, the model is highly adaptive, and short-term forecasting becomes very accurate. The computational time does increase while the model needs to be retrained every time a new refit interval occurs. With longer intervals \geq 1-day this time is dropped significantly, but at a cost of a less accurate model. \\
+
+\noindent In the implementation of the forecast model, there needs to be a weighing off between the accuracy, the computational time and how far into the future the forecast should reach. This will be specific for each site and on each operation, depending on different factors like vessel rental costs, local weather conditions, and financial tolerances.  
+
+\section{Implications for Offshore Wind Turbine Installation}
+In real-life installations, the implication of the forecasts will need to reduce the waiting time when a vessel cannot be used. From Table \ref{table:operational_limits}, the different vessels are all suitable in different scenarios. Where, due to the investigated site, only a jack-up vessel is an option. Where other sites might have lower values, for the significant wave height, the mean wave frequency and the wind speed, the use of other vessels would be optional. This will lead to more availability during the installation, which could lead to a smoother and more efficient installation. 
+
+\section{Limitations of the Present Research}
+While the Hybrid model does show some accurate forecasts, it is important to note some of the limitations during this research:
+\begin{itemize}
+    \item \textbf{Geographical scope}: As discussed earlier, only one site was analysed, different sites might have different forecast behaviour. 
+    \item \textbf{Data complexity} Where only Significant Wave Height, Mean Wave Frequency and Wind Speed were used, other parameters could further refine the forecast.
+    \item \textbf{Computational Constraints} Due to long computational times, the models are somewhat scoped, which leads to a less accurate model overall.
+\end{itemize}
+
+Although the results show the importance of matching the forecasts with the operational installation. Advanced models can be used to make the forecasts, but the implementation needs to be carefully assessed in real-world cases.

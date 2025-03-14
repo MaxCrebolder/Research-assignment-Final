@@ -1,0 +1,62 @@
+\label{append:operational limit}
+\begin{minted}[frame=lines, breaklines, fontsize=\small]{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+file_path = '/Users/maxcrebolder/Documents/Site15_29m.xlsx'
+
+xls = pd.ExcelFile(file_path)
+dfs_s_wht = []
+dfs_mean_fr = []
+dfs_wind_speed = []
+
+for sheet in xls.sheet_names:
+    df = pd.read_excel(xls, sheet_name=sheet)
+    dfs_s_wht.append(df[['s_wht']])       
+    dfs_mean_fr.append(1 / df[['mean_fr']]) 
+    dfs_wind_speed.append(df[['wind_speed']])  
+
+wave_data_s_wht = pd.concat(dfs_s_wht, axis=1)
+wave_data_mean_fr = pd.concat(dfs_mean_fr, axis=1)
+wave_data_wind_speed = pd.concat(dfs_wind_speed, axis=1)
+
+wave_data_s_wht['Average_s_wht'] = wave_data_s_wht.mean(axis=1)
+wave_data_mean_fr['Average_mean_fr'] = wave_data_mean_fr.mean(axis=1)
+wave_data_wind_speed['Average_wind_speed'] = wave_data_wind_speed.mean(axis=1)
+
+plt.figure(figsize=(12, 8))
+plt.plot(wave_data_s_wht['Average_s_wht'], label='Average s_wht', color='blue')
+plt.axhline(y=2.5, color='red', linestyle='--', label='Operational limit (y=2.5)')
+plt.title("Average Significant Wave Height Over Time Site 1")
+plt.xlabel("Hour")
+plt.ylabel("Average Significant Wave Height (s_wht)")
+plt.legend(loc='upper right', fontsize=20) 
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(12, 8))
+plt.plot(wave_data_mean_fr['Average_mean_fr'], label='Average 1/mean_fr', color='blue')
+plt.axhline(y=9, color='red', linestyle='--', label='Operational limit (y=9)')
+plt.axhline(y=7, color='orange', linestyle='--', label='Operational limit (y=7)')
+plt.title("Average Mean frequency Over Time Site 1")
+plt.xlabel("Hour")
+plt.ylabel("Average 1/Mean Frequency (1/mean_fr)")
+plt.legend(loc='upper right', fontsize=20)  
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(12, 8))
+plt.plot(wave_data_wind_speed['Average_wind_speed'], label='Average wind_speed', color='blue')
+plt.axhline(y=16, color='red', linestyle='--', label='Operational limit (y=16)')
+plt.axhline(y=10, color='orange', linestyle='--', label='Operational limit (y=10)')
+plt.axhline(y=8, color='yellow', linestyle='--', label='Operational limit (y=8)')
+plt.title("Average Wind Speed Over Time Site 1")
+plt.xlabel("Hour")
+plt.ylabel("Average Wind Speed")
+plt.legend(loc='upper right', fontsize=20)  
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+\end{minted}
